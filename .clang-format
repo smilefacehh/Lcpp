@@ -1,0 +1,30 @@
+---
+BasedOnStyle: Google
+IndentWidth: 4
+---
+Language: Cpp
+DerivePointerAlignment: false
+PointerAlignment: Left
+AccessModifierOffset: -4
+
+ColumnLimit: 120
+AlignConsecutiveAssignments: false
+AlwaysBreakTemplateDeclarations: true
+AlignEscapedNewlines: Right
+AlignTrailingComments: true
+AllowShortFunctionsOnASingleLine: All
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: true
+  AfterFunction: true
+  AfterEnum: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+
+FixNamespaceComments: true
+MaxEmptyLinesToKeep: 1
+SortIncludes: true
+IncludeBlocks: Preserve
