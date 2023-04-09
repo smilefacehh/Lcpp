@@ -61,4 +61,36 @@ std::vector<Point2i> Raytracing::Trace(const Point2i& start, const Point2i& end)
 
     return pts;
 }
+
+std::vector<Point2i> Raytracing::Trace2(Point2i start, Point2i end)
+{
+    std::vector<Point2i> pts;
+
+    int dx = std::abs(end.x - start.x);
+    int dy = std::abs(end.y - start.y);
+    int sx = (start.x < end.x) ? 1 : -1;
+    int sy = (start.y < end.y) ? 1 : -1;
+    int err = dx - dy;
+    while (true)
+    {
+        pts.emplace_back(start);
+        if (start.x == end.x && start.y == end.y)
+        {
+            break;
+        }
+        int e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            start.x += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            start.y += sy;
+        }
+    }
+
+    return pts;
+}
 }  // namespace lcpp

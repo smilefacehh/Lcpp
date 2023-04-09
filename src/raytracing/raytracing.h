@@ -13,5 +13,7 @@ public:
 
     // bresenham-line algorithm
     std::vector<Point2i> Trace(const Point2i& start, const Point2i& end);
+
+    std::vector<Point2i> Trace2(Point2i start, Point2i end);
 };
 }  // namespace lcpp

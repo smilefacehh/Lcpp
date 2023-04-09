@@ -2,6 +2,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <limits>
+
+#include "common/basic.h"
 #include "raytracing/raytracing.h"
 
 using namespace lcpp;
@@ -45,13 +47,23 @@ int main(int argc, char** argv)
         return 0;
     }
     Raytracing raytracer;
-    auto points = raytracer.Trace(Point2i{atoi(argv[1]), atoi(argv[2])},
-                                  Point2i{atoi(argv[3]), atoi(argv[4])});
-    for (const auto& pt : points)
-    {
-        std::cout << pt.x << "," << pt.y << std::endl;
-    }
+    std::vector<Vec2i> points;
 
-    DrawPixel(points);
+    L_TIC(t_bresenham);
+    points = raytracer.Trace(Point2i{atoi(argv[1]), atoi(argv[2])},
+                             Point2i{atoi(argv[3]), atoi(argv[4])});
+    L_TOC_US_LOG(t_bresenham);
+
+    L_TIC(t_bresenham2);
+    points = raytracer.Trace2(Point2i{atoi(argv[1]), atoi(argv[2])},
+                              Point2i{atoi(argv[3]), atoi(argv[4])});
+    L_TOC_US_LOG(t_bresenham2);
+
+    // for (const auto& pt : points)
+    // {
+    //     std::cout << pt.x << "," << pt.y << std::endl;
+    // }
+
+    // DrawPixel(points);
     return 0;
 }
