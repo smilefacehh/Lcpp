@@ -93,4 +93,49 @@ std::vector<Point2i> Raytracing::Trace2(Point2i start, Point2i end)
 
     return pts;
 }
+
+std::vector<Point3i> Raytracing::Trace3D(Point3i start, Point3i end)
+{
+    std::vector<Point3i> pts;
+
+    int dx = abs(end.x - start.x);
+    int dy = abs(end.y - start.y);
+    int dz = abs(end.z - start.z);
+    int sx = (start.x < end.x) ? 1 : -1;
+    int sy = (start.y < end.y) ? 1 : -1;
+    int sz = (start.z < end.z) ? 1 : -1;
+    int err1 = dx - dy;
+    int err2 = dx - dz;
+
+    while (true)
+    {
+        pts.emplace_back(start);
+
+        if (start.x == end.x && start.y == end.y && start.z == end.z)
+            break;
+        int e2 = 2 * err1;
+        if (e2 > -dy)
+        {
+            err1 -= dy;
+            start.x += sx;
+        }
+        if (e2 > -dz)
+        {
+            err2 -= dz;
+            start.x += sx;
+        }
+        if (e2 < dy && err2 < dz)
+        {
+            err1 += dx;
+            start.y += sy;
+        }
+        if (e2 < dz && err1 < dy)
+        {
+            err2 += dx;
+            start.z += sz;
+        }
+    }
+
+    return pts;
+}
 }  // namespace lcpp
